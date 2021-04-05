@@ -1,4 +1,5 @@
 // global imports
+// we import files with full functionality (work from the box) !!!
 import './src/toggleSidebar.js';
 import './src/cart/toggleCart.js';
 import './src/cart/setupCart.js';
