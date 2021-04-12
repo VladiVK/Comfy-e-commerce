@@ -17,7 +17,16 @@ const getElement = (selection) => {
   );
 };
 
-const formatPrice = () => {};
+// for a safe reason it is good to keep money value in cents !!!
+// in api we have value in cents: 999 / but we need  $9,99
+// easiest way : 999 / 100 = 9,99
+const formatPrice = (price) => {
+  let formattedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format((price / 100).toFixed(2));
+  return formattedPrice;
+};
 
 const getStorageItem = (item) => {
   let storageItem = localStorage.getItem(item);
