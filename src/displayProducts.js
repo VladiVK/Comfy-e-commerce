@@ -1,11 +1,11 @@
 import { formatPrice } from './utils.js';
 import { addToCart } from './cart/setupCart.js';
+import { openCart } from './cart/toggleCart.js';
 const display = (products, domElement) => {
-  console.log(domElement);
   domElement.innerHTML = products
     .map(({ id, name, price, image }) => {
       return `
-              <article class="product">
+    <article class="product">
         <div class="product-container">
           <img class="product-img img" src="${image}" alt="${name}">
           <div class="product-icons">
@@ -25,6 +25,15 @@ const display = (products, domElement) => {
         `;
     })
     .join('');
+
+  domElement.addEventListener('click', (e) => {
+    const parent = e.target.parentElement;
+    if (parent.classList.contains('product-cart-btn')) {
+      addToCart(parent.dataset.id);
+      //   open cart on page (optional)
+      openCart();
+    }
+  });
 };
 
 export default display;
