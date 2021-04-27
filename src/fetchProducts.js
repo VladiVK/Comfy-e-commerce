@@ -7,13 +7,13 @@ const fetchProducts = async () => {
   }
   return response;
 
-  //   try {
-  //     const response = await fetch(allProductsUrl);
-  //     const products = await response.json();
-  //     return products;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
+  // try {
+  //   const response = await fetch(allProductsUrl);
+  //   const products = await response.json();
+  //   return products;
+  // } catch (error) {
+  //   console.log(error);
+  // }
 };
 
 export default fetchProducts;

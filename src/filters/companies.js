@@ -3,6 +3,7 @@ import display from '../displayProducts.js';
 
 const setupCompanies = (store) => {
   const companiesDOM = getElement('.companies');
+  //   unique companies names
   const companies = ['all', ...new Set(store.map(({ company }) => company))];
   companiesDOM.innerHTML = companies
     .map((company) => {
