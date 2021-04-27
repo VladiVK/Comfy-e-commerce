@@ -12,4 +12,6 @@ import addToCartDOM from './addToCartDOM.js';
 
 export const addToCart = (id) => {
   console.log(id);
+  // optional
+  openCart();
 };

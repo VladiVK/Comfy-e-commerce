@@ -14,6 +14,8 @@ import display from '../displayProducts.js';
 import { getElement } from '../utils.js';
 
 const loading = getElement('.page-loading');
+// **** we do not need wait for content loading!!! in this file!!!
+// we use already downloaded store !!!
 
 display(store, getElement('.products-container'));
 // search by broduct name
