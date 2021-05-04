@@ -30,9 +30,32 @@ export const addToCart = (id) => {
   } else {
     // update values
   }
+  // add one to the item count
+  displayCartItemCount();
+
+  // display cart totals
+  displayCartTotal();
+
+  // set cart in local storage
+  setStorageItem('cart', cart);
   // more stuff...
   openCart();
 };
+
+function displayCartItemCount() {
+  const amount = cart.reduce((total, cartItem) => {
+    return (total += cartItem.amount);
+  }, 0);
+  cartItemCountDOM.textContent = amount;
+}
+
+function displayCartTotal() {
+  const totalPrice = cart.reduce((total, cartItem) => {
+    return (total += cartItem.price * cartItem.amount);
+  }, 0);
+
+  cartTotalDOM.textContent = formatPrice(totalPrice);
+}
 
 const init = () => {
   console.log(cart);
