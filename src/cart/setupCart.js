@@ -38,6 +38,7 @@ export const addToCart = (id) => {
 
   // set cart in local storage
   setStorageItem('cart', cart);
+
   // more stuff...
   openCart();
 };
@@ -46,6 +47,7 @@ function displayCartItemCount() {
   const amount = cart.reduce((total, cartItem) => {
     return (total += cartItem.amount);
   }, 0);
+
   cartItemCountDOM.textContent = amount;
 }
 
@@ -54,10 +56,21 @@ function displayCartTotal() {
     return (total += cartItem.price * cartItem.amount);
   }, 0);
 
-  cartTotalDOM.textContent = formatPrice(totalPrice);
+  cartTotalDOM.textContent = `Total : ${formatPrice(totalPrice)}`;
+}
+function setupCartFunctionality() {}
+function displayCartItemsDOM() {
+  cart.forEach((cartItem) => addToCartDOM(cartItem));
 }
 
 const init = () => {
-  console.log(cart);
+  // display amount of items in the cart
+  displayCartItemCount();
+  // display cart total price
+  displayCartTotal();
+  // add all items to the DOM
+  displayCartItemsDOM();
+  // setup cart functionality(add, remove ...)
+  setupCartFunctionality();
 };
 init();
