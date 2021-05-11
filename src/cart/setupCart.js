@@ -63,6 +63,9 @@ function displayCartTotal() {
   cartTotalDOM.textContent = `Total : ${formatPrice(totalPrice)}`;
 }
 
+function removeItem(id) {
+  cart = cart.filter((cartItem) => cartItem.id !== id);
+}
 function increaseAmount(id) {
   let newAmount;
   cart = cart.map((cartItem) => {
@@ -75,8 +78,55 @@ function increaseAmount(id) {
 
   return newAmount;
 }
+function decreaseAmount(id) {
+  let newAmount;
+  cart = cart.map((cartItem) => {
+    if (cartItem.id === id) {
+      newAmount = cartItem.amount - 1;
+      cartItem = { ...cartItem, amount: newAmount };
+    }
+    return cartItem;
+  });
 
-function setupCartFunctionality() {}
+  return newAmount;
+}
+
+function setupCartFunctionality() {
+  cartItemsDOM.addEventListener('click', (e) => {
+    const element = e.target;
+    // we need parent if we have an icon as a pressing area
+    const parent = e.target.parentElement;
+    const id = e.target.dataset.id;
+    const parentID = e.target.parentElement.dataset.id;
+
+    // *** remove ***
+    if (element.classList.contains('cart-item-remove-btn')) {
+      removeItem(id);
+      // remove one product( <article>...</article>)
+      // element.parentElement.parentElement.remove(); or ...
+      parent.parentElement.remove();
+    }
+    // *** increase ***
+    // now we have an icon as a button... so we need a parent element
+    if (parent.classList.contains('cart-item-increase-btn')) {
+      const newAmount = increaseAmount(parentID);
+      parent.nextElementSibling.textContent = newAmount;
+    }
+    // *** decrease ***
+    if (parent.classList.contains('cart-item-decrease-btn')) {
+      const newAmount = decreaseAmount(parentID);
+      if (newAmount === 0) {
+        removeItem(parentID);
+        parent.parentElement.parentElement.remove();
+      } else {
+        parent.previousElementSibling.textContent = newAmount;
+      }
+    }
+    displayCartItemCount();
+    displayCartTotal();
+    setStorageItem('cart', cart);
+  });
+}
 
 function displayCartItemsDOM() {
   cart.forEach((cartItem) => addToCartDOM(cartItem));
